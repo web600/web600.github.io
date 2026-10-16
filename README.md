@@ -11,13 +11,7 @@
 ## 快速開始
 
 ```bash
-# 1) 取得檔案（此資料夾即完整專案）
-# 2) 啟動任一靜態伺服器（不需要 Node、不需要建置）
-python tools/devserver.py 8138          # 開發用伺服器：已停用快取
-# 或：python -m http.server 8138
-# 3) 開啟瀏覽器
-#    http://127.0.0.1:8138/index.html          → 完整開機 + 登入流程
-#    http://127.0.0.1:8138/index.html?fast=1   → 略過開機，直接進桌面（展示／截圖用）
+https://ryan133692.github.io/index.html(可以進去此系統測試版的網頁網址)
 ```
 
 首次進入桌面會自動開啟一個 Finder 視窗，並送出一則歡迎通知。
