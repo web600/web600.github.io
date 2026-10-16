@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1200" preserveAspectRatio="xMidYMid slice" width="1920" height="1200">
+  <defs>
+    <linearGradient id="b-base" x1="0" y1="0" x2="0.2" y2="1">
+      <stop offset="0" stop-color="#4a1c46"/>
+      <stop offset="0.5" stop-color="#2a1030"/>
+      <stop offset="1" stop-color="#0e0714"/>
+    </linearGradient>
+    <radialGradient id="b-g1" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#ffb066" stop-opacity="1"/>
+      <stop offset="1" stop-color="#ff9d4d" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="b-g2" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#ff5c7d" stop-opacity="1"/>
+      <stop offset="1" stop-color="#ff4d70" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="b-g3" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#a465ff" stop-opacity="0.95"/>
+      <stop offset="1" stop-color="#8f4dff" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="b-g4" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#ffe9b0" stop-opacity="0.9"/>
+      <stop offset="1" stop-color="#ffe9b0" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="b-sun" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fff6d8" stop-opacity="0.95"/>
+      <stop offset="1" stop-color="#ffb246" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="b-soft" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="92"/>
+    </filter>
+    <filter id="b-soft2" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="38"/>
+    </filter>
+    <filter id="b-grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.08"/></feComponentTransfer>
+    </filter>
+  </defs>
+
+  <rect width="1920" height="1200" fill="url(#b-base)"/>
+
+  <g filter="url(#b-soft)">
+    <ellipse cx="1180" cy="240" rx="820" ry="420" fill="url(#b-g3)"/>
+    <ellipse cx="860" cy="560" rx="700" ry="360" fill="url(#b-g2)"/>
+    <ellipse cx="1220" cy="780" rx="620" ry="340" fill="url(#b-g1)"/>
+    <ellipse cx="1320" cy="700" rx="360" ry="240" fill="url(#b-g4)"/>
+    <ellipse cx="300" cy="1080" rx="760" ry="360" fill="#33184a" opacity="0.8"/>
+  </g>
+
+  <g filter="url(#b-soft2)" opacity="0.9">
+    <circle cx="1300" cy="880" r="150" fill="url(#b-sun)"/>
+    <path d="M -80 1060 C 420 900, 760 1180, 1240 1000 C 1600 870, 1800 980, 2000 900 L 2000 1260 L -80 1260 Z" fill="#0b0512" opacity="0.92"/>
+    <path d="M -80 1160 C 500 1060, 900 1260, 1400 1120 C 1700 1040, 1860 1120, 2000 1080 L 2000 1260 L -80 1260 Z" fill="#050208" opacity="0.95"/>
+  </g>
+
+  <rect width="1920" height="1200" filter="url(#b-grain)" opacity="0.6" style="mix-blend-mode:overlay"/>
+</svg>

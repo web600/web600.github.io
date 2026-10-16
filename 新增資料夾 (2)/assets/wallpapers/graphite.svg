@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1200" preserveAspectRatio="xMidYMid slice" width="1920" height="1200">
+  <defs>
+    <linearGradient id="c-base" x1="0" y1="0" x2="0.6" y2="1">
+      <stop offset="0" stop-color="#48505c"/>
+      <stop offset="0.55" stop-color="#2a2f37"/>
+      <stop offset="1" stop-color="#111418"/>
+    </linearGradient>
+    <radialGradient id="c-g1" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#a8bcd8" stop-opacity="0.8"/>
+      <stop offset="1" stop-color="#8fa3bd" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="c-g2" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#71829c" stop-opacity="0.8"/>
+      <stop offset="1" stop-color="#5c6b80" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="c-g3" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#eef4fb" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#e8eef6" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="c-soft" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="100"/>
+    </filter>
+    <filter id="c-soft2" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="48"/>
+    </filter>
+    <filter id="c-grain">
+      <feTurbulence type="fractalNoise" baseFrequency="1.1" numOctaves="4" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.1"/></feComponentTransfer>
+    </filter>
+  </defs>
+
+  <rect width="1920" height="1200" fill="url(#c-base)"/>
+
+  <g filter="url(#c-soft)">
+    <ellipse cx="480" cy="200" rx="820" ry="420" fill="url(#c-g1)"/>
+    <ellipse cx="1500" cy="620" rx="700" ry="420" fill="url(#c-g2)"/>
+    <ellipse cx="960" cy="1100" rx="900" ry="380" fill="#141922" opacity="0.75"/>
+    <ellipse cx="1300" cy="140" rx="520" ry="260" fill="url(#c-g3)"/>
+  </g>
+
+  <g filter="url(#c-soft2)" opacity="0.8">
+    <path d="M -100 940 C 420 760, 820 1060, 1320 860 C 1660 720, 1820 800, 2020 700 L 2020 1300 L -100 1300 Z" fill="#101317" opacity="0.95"/>
+    <path d="M -100 1080 C 460 980, 900 1180, 1420 1040 C 1720 960, 1860 1020, 2020 980 L 2020 1300 L -100 1300 Z" fill="#07090c"/>
+  </g>
+
+  <rect width="1920" height="1200" filter="url(#c-grain)" opacity="0.65" style="mix-blend-mode:overlay"/>
+</svg>
