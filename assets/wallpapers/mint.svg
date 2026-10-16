@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1200" preserveAspectRatio="xMidYMid slice" width="1920" height="1200">
+  <defs>
+    <linearGradient id="d-base" x1="0" y1="0" x2="0.4" y2="1">
+      <stop offset="0" stop-color="#eafaf4"/>
+      <stop offset="0.55" stop-color="#dceefb"/>
+      <stop offset="1" stop-color="#e8e6ff"/>
+    </linearGradient>
+    <radialGradient id="d-g1" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#63e3c0" stop-opacity="0.85"/>
+      <stop offset="1" stop-color="#63e3c0" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="d-g2" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#8fb8ff" stop-opacity="0.9"/>
+      <stop offset="1" stop-color="#8fb8ff" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="d-g3" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#c3a7ff" stop-opacity="0.7"/>
+      <stop offset="1" stop-color="#c3a7ff" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="d-g4" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#fff3c4" stop-opacity="0.95"/>
+      <stop offset="1" stop-color="#fff3c4" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="d-soft" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="120"/>
+    </filter>
+    <filter id="d-soft2" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="55"/>
+    </filter>
+    <filter id="d-grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.06"/></feComponentTransfer>
+    </filter>
+  </defs>
+
+  <rect width="1920" height="1200" fill="url(#d-base)"/>
+
+  <g filter="url(#d-soft)">
+    <ellipse cx="420" cy="260" rx="760" ry="400" fill="url(#d-g1)"/>
+    <ellipse cx="1420" cy="340" rx="700" ry="380" fill="url(#d-g2)"/>
+    <ellipse cx="1020" cy="960" rx="880" ry="400" fill="url(#d-g3)"/>
+    <ellipse cx="1620" cy="900" rx="520" ry="300" fill="url(#d-g1)"/>
+    <ellipse cx="220" cy="1020" rx="560" ry="320" fill="url(#d-g4)"/>
+  </g>
+
+  <g filter="url(#d-soft2)" opacity="0.55">
+    <path d="M -100 900 C 420 720, 860 1010, 1360 830 C 1680 720, 1840 790, 2020 700 L 2020 1300 L -100 1300 Z" fill="#b9e9de" opacity="0.7"/>
+    <path d="M -100 1060 C 480 960, 940 1150, 1440 1020 C 1740 950, 1880 1000, 2020 960 L 2020 1300 L -100 1300 Z" fill="#ffffff" opacity="0.65"/>
+  </g>
+
+  <rect width="1920" height="1200" filter="url(#d-grain)" opacity="0.5" style="mix-blend-mode:soft-light"/>
+</svg>

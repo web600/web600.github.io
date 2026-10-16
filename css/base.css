@@ -1,0 +1,251 @@
+/* ==========================================================================
+   base.css — Reset · 虛擬螢幕 · 桌布 · 開機 · 登入 · 桌面圖示 · HUD
+   ========================================================================== */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  font-family: var(--font-ui);
+  font-size: var(--fs-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  background:
+    radial-gradient(120% 130% at 50% -10%, #191c24 0%, #0a0b10 55%, #04050a 100%);
+  color: #fff;
+}
+
+button, input, textarea, select { font: inherit; color: inherit; }
+button { border: 0; background: none; cursor: default; padding: 0; }
+input, textarea { border: 0; outline: 0; background: none; }
+svg { display: block; }
+::selection { background: var(--select); color: #fff; }
+
+/* 捲軸 — macOS overlay 風格 */
+.scroll, .scroll * { scrollbar-width: thin; scrollbar-color: var(--text-3) transparent; }
+::-webkit-scrollbar { width: 9px; height: 9px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--text-3) 70%, transparent);
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+::-webkit-scrollbar-thumb:hover { background: color-mix(in srgb, var(--text-2) 80%, transparent); background-clip: padding-box; }
+
+/* ============================ 虛擬螢幕 ============================ */
+.screen {
+  position: fixed;
+  left: 50%; top: 50%;
+  width: var(--screen-w);
+  height: var(--screen-h);
+  transform: translate(-50%, -50%) scale(var(--scale, 1));
+  transform-origin: center center;
+  overflow: hidden;
+  border-radius: 16px;
+  background: #05060a;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, .07), 0 60px 140px -30px rgba(0, 0, 0, .9);
+  isolation: isolate;
+}
+html[data-fit="true"] .screen { border-radius: 0; box-shadow: none; }
+
+.glass {
+  background: var(--panel-bg);
+  -webkit-backdrop-filter: var(--blur-thick);
+  backdrop-filter: var(--blur-thick);
+}
+
+/* ============================ 桌布 ============================ */
+.wallpaper, .wallpaper-blur {
+  position: absolute; inset: 0;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-image: url("../assets/wallpapers/aurora.svg");
+}
+.wallpaper { transition: opacity var(--dur-3) var(--ease), filter var(--dur-3); }
+.wallpaper-blur { filter: blur(70px) saturate(150%); transform: scale(1.12); opacity: 0; }
+body[data-locked="true"] .wallpaper-blur { opacity: 1; }
+body[data-locked="true"] .wallpaper { filter: none; }
+
+/* ============================ 桌面 ============================ */
+.desktop { position: absolute; inset: 0; animation: desk-in .8s var(--ease) both; }
+@keyframes desk-in { from { opacity: 0; transform: scale(1.04); } to { opacity: 1; transform: none; } }
+.desktop[hidden] { display: none; }
+
+/* ============================ 開機 ============================ */
+.boot {
+  position: absolute; inset: 0;
+  z-index: 900;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 66px;
+  background: #000;
+  transition: opacity .7s var(--ease-soft);
+}
+.boot[hidden] { display: none; }
+.boot.done { opacity: 0; pointer-events: none; }
+.boot-logo svg { width: 74px; height: 74px; fill: #f5f5f7; opacity: .96; }
+.boot-bar {
+  width: 186px; height: 5px;
+  background: rgba(255, 255, 255, .2);
+  border-radius: 999px; overflow: hidden;
+}
+.boot-bar i {
+  display: block; height: 100%; width: 0;
+  background: #f5f5f7; border-radius: 999px;
+  transition: width .28s var(--ease-soft);
+}
+.boot-hint {
+  position: absolute; bottom: 46px;
+  font-size: 11px; letter-spacing: .3px;
+  color: rgba(255, 255, 255, .34);
+}
+
+/* ============================ 登入 ============================ */
+.login {
+  position: absolute; inset: 0;
+  z-index: 800;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  background: #05060a;
+  -webkit-backdrop-filter: var(--blur-thick);
+  backdrop-filter: var(--blur-thick);
+  animation: fade-in .6s var(--ease-soft) both;
+}
+.login[hidden] { display: none; }
+.login > * { position: relative; }
+/* 登入畫面的桌布層：由 shell 依 store.wallpaper 設定，此處只負責模糊與調暗 */
+.login .login-bg {
+  position: absolute; inset: 0;
+  background-image: url("../assets/wallpapers/aurora.svg");
+  background-size: cover; background-position: center;
+  filter: blur(26px) saturate(130%) brightness(.62);
+  transform: scale(1.15);
+}
+.login.out { animation: login-out .62s var(--ease) both; }
+@keyframes login-out { to { opacity: 0; transform: scale(1.06); filter: blur(8px); } }
+@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+
+.login-clock { position: absolute; top: 84px; text-align: center; color: #fff; }
+.login-clock b {
+  display: block; font-size: 76px; font-weight: 200; letter-spacing: -2px;
+  text-shadow: 0 2px 30px rgba(0, 0, 0, .5);
+}
+.login-clock span { font-size: 15px; font-weight: 500; color: rgba(255, 255, 255, .8); }
+
+.login-user { display: flex; flex-direction: column; align-items: center; gap: 14px; }
+.login-avatar {
+  width: 82px; height: 82px; border-radius: 50%;
+  display: grid; place-items: center;
+  font-size: 34px; font-weight: 500; color: #fff;
+  background: linear-gradient(150deg, #7f9dff, #4d5fe0 70%);
+  box-shadow: 0 12px 34px rgba(0, 0, 0, .45), inset 0 1px 0 rgba(255, 255, 255, .4);
+}
+.login-name { font-size: 16px; font-weight: 600; color: #fff; text-shadow: 0 1px 12px rgba(0, 0, 0, .5); }
+.login-field {
+  display: flex; align-items: center;
+  width: 218px; height: 30px; padding: 0 4px 0 12px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .16);
+  border: 1px solid rgba(255, 255, 255, .24);
+  -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+}
+.login-field input { flex: 1; min-width: 0; font-size: 13px; color: #fff; }
+.login-field input::placeholder { color: rgba(255, 255, 255, .55); }
+.login-field button {
+  width: 22px; height: 22px; border-radius: 50%;
+  display: grid; place-items: center;
+  background: rgba(255, 255, 255, .22);
+}
+.login-field button svg { width: 12px; height: 12px; stroke: #fff; fill: none; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.login-field button:hover { background: rgba(255, 255, 255, .38); }
+.login-hint { font-size: 11px; color: rgba(255, 255, 255, .55); }
+.login-fp { font-size: 11px; color: rgba(255, 255, 255, .75); text-decoration: underline; }
+.shake { animation: shake .42s var(--ease-soft); }
+@keyframes shake {
+  10%, 90% { transform: translateX(-3px); }
+  30%, 70% { transform: translateX(5px); }
+  50% { transform: translateX(-7px); }
+}
+
+/* ============================ 桌面圖示 ============================ */
+.desktop-icons {
+  position: absolute; top: calc(var(--mb-h) + 8px); right: 14px;
+  width: 96px;
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  z-index: 2;
+}
+.di {
+  width: 92px; padding: 6px 4px 4px;
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+  border-radius: 8px; text-align: center;
+  cursor: default; user-select: none;
+  transition: background var(--dur-1);
+}
+.di:hover { background: rgba(255, 255, 255, .12); }
+.di.sel { background: color-mix(in srgb, var(--accent) 45%, transparent); }
+.di.sel .di-name { background: var(--accent); color: #fff; }
+.di-ic { width: 54px; height: 54px; }
+.di-ic svg, .di-ic img { width: 100%; height: 100%; }
+.di-name {
+  font-size: 11.5px; font-weight: 500; color: #fff; line-height: 1.25;
+  padding: 1px 4px; border-radius: 4px;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, .65);
+  word-break: break-all;
+}
+
+/* ============================ 亮度 / 夜覽覆蓋層 ============================ */
+.dim, .night { position: absolute; inset: 0; pointer-events: none; z-index: 950; }
+.dim { background: #000; opacity: 0; }
+.night { background: linear-gradient(0deg, rgba(255, 152, 32, .28), rgba(255, 190, 80, .12)); opacity: 0; mix-blend-mode: multiply; }
+
+/* ============================ HUD / Toast ============================ */
+.toasts {
+  position: absolute; top: calc(var(--mb-h) + 12px); left: 50%;
+  transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  z-index: 960; pointer-events: none;
+}
+.toast {
+  display: flex; align-items: center; gap: 9px;
+  padding: 9px 15px; border-radius: 999px;
+  font-size: 12.5px; font-weight: 500; color: var(--text);
+  background: var(--panel-bg);
+  -webkit-backdrop-filter: var(--blur-thick); backdrop-filter: var(--blur-thick);
+  box-shadow: var(--shadow-pop);
+  animation: toast-in .32s var(--ease) both;
+}
+.toast.out { animation: toast-out .3s var(--ease-soft) both; }
+.toast svg { width: 15px; height: 15px; stroke: currentColor; fill: none; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+@keyframes toast-in { from { opacity: 0; transform: translateY(-10px) scale(.96); } }
+@keyframes toast-out { to { opacity: 0; transform: translateY(-8px) scale(.97); } }
+
+.hud {
+  position: absolute; left: 50%; top: 42%;
+  transform: translate(-50%, -50%);
+  padding: 16px 22px; border-radius: 18px;
+  display: flex; flex-direction: column; align-items: center; gap: 7px;
+  color: var(--text); box-shadow: var(--shadow-panel);
+  z-index: 960;
+}
+.hud[hidden] { display: none; }
+.hud .hud-bar { width: 170px; height: 6px; border-radius: 999px; background: var(--ctl-bg); overflow: hidden; }
+.hud .hud-bar i { display: block; height: 100%; background: var(--text); border-radius: 999px; }
+.hud .hud-label { font-size: 11px; color: var(--text-2); }
+
+/* ============================ 通用右鍵選單 ============================ */
+.ctx {
+  position: absolute; z-index: 970; min-width: 186px;
+  padding: 5px; border-radius: 10px;
+  background: var(--menu-bg);
+  box-shadow: var(--shadow-pop);
+  animation: pop-in .16s var(--ease) both;
+}
+.ctx[hidden] { display: none; }
+@keyframes pop-in { from { opacity: 0; transform: scale(.94); } }

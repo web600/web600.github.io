@@ -1,0 +1,135 @@
+/* ==========================================================================
+   tokens.css — 設計權杖 (Single source of truth for visual language)
+   所有顏色、材質、圓角、陰影、動態曲線與尺寸皆由此輸出。
+   主題切換只改 <html data-theme>，其餘模組不需知道目前是深色或淺色。
+   ========================================================================== */
+
+:root {
+  /* ---------- 幾何 ---------- */
+  --screen-w: 1512px;          /* 虛擬桌面邏輯尺寸（14" MacBook Pro 14 預設） */
+  --screen-h: 945px;
+  --mb-h: 26px;                /* 選單列高度 */
+  --radius-win: 11px;
+  --radius-panel: 20px;
+  --radius-ctl: 6px;
+  --radius-pill: 999px;
+  --dock-pad: 8px;
+
+  /* ---------- 字體 ---------- */
+  --font-ui: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display",
+             "Helvetica Neue", "Segoe UI Variable", "Segoe UI", "PingFang TC",
+             "Microsoft JhengHei UI", "Noto Sans TC", system-ui, sans-serif;
+  --font-mono: "SF Mono", ui-monospace, "JetBrains Mono", "Cascadia Mono",
+               Menlo, Consolas, "Noto Sans Mono", monospace;
+  --fs-body: 13px;
+  --fs-sm: 11.5px;
+  --fs-title: 13px;
+
+  /* ---------- 動態 ---------- */
+  --ease: cubic-bezier(.32, .72, 0, 1);          /* macOS 視窗曲線 */
+  --ease-soft: cubic-bezier(.4, 0, .2, 1);
+  --ease-spring: cubic-bezier(.22, 1.4, .36, 1);
+  --dur-1: .16s;
+  --dur-2: .26s;
+  --dur-3: .42s;
+
+  /* ---------- 材質 (Materials) ---------- */
+  --blur-thick: saturate(190%) blur(34px);
+  --blur-thin: saturate(170%) blur(18px);
+  --blur-max: saturate(200%) blur(50px);
+
+  /* ---------- 強調色（由 store 覆寫） ---------- */
+  --accent: #0a84ff;
+  --accent-ink: #fff;
+  --accent-soft: color-mix(in srgb, var(--accent) 16%, transparent);
+  --accent-ring: color-mix(in srgb, var(--accent) 55%, transparent);
+
+  /* ---------- Dock（由 store 覆寫） ---------- */
+  --dock-size: 54px;
+  --dock-icon: calc(var(--dock-size) * 1.12);
+}
+
+/* ============================ 深色 Appearance ============================ */
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --text: #f2f2f5;
+  --text-2: rgba(242, 242, 248, .66);
+  --text-3: rgba(242, 242, 248, .38);
+  --line: rgba(255, 255, 255, .1);
+  --line-strong: rgba(255, 255, 255, .18);
+
+  --win-bg: rgba(38, 38, 42, .72);
+  --win-bg-inactive: rgba(38, 38, 42, .62);
+  --bar-bg: rgba(52, 52, 57, .62);
+  --bar-bg-inactive: rgba(44, 44, 48, .55);
+  --sidebar-bg: rgba(30, 30, 34, .5);
+  --content-bg: rgba(28, 28, 31, .55);
+
+  --panel-bg: rgba(44, 44, 49, .62);
+  --panel-bg-2: rgba(60, 60, 66, .5);
+  --ctl-bg: rgba(255, 255, 255, .09);
+  --ctl-bg-hover: rgba(255, 255, 255, .16);
+  --ctl-on: rgba(255, 255, 255, .88);
+  --seg-bg: rgba(0, 0, 0, .3);
+  --field-bg: rgba(0, 0, 0, .28);
+  --hover: rgba(255, 255, 255, .08);
+  --select: color-mix(in srgb, var(--accent) 78%, transparent);
+  --dock-bg: rgba(48, 48, 53, .45);
+  --dock-line: rgba(255, 255, 255, .14);
+  --scrim: rgba(0, 0, 0, .45);
+  --menu-bg: rgba(42, 42, 47, .72);
+
+  --shadow-win: 0 0 0 .5px rgba(0, 0, 0, .6), 0 32px 70px -18px rgba(0, 0, 0, .72), 0 12px 28px rgba(0, 0, 0, .44);
+  --shadow-win-inactive: 0 0 0 .5px rgba(0, 0, 0, .5), 0 18px 40px -16px rgba(0, 0, 0, .5), 0 6px 16px rgba(0, 0, 0, .3);
+  --shadow-panel: 0 0 0 .5px rgba(0, 0, 0, .5), 0 24px 60px -14px rgba(0, 0, 0, .6);
+  --shadow-pop: 0 0 0 .5px rgba(0, 0, 0, .45), 0 14px 34px -8px rgba(0, 0, 0, .5);
+  --sheen: rgba(255, 255, 255, .07);
+}
+
+/* ============================ 淺色 Appearance ============================ */
+html[data-theme="light"] {
+  color-scheme: light;
+  --text: #1b1b1f;
+  --text-2: rgba(0, 0, 0, .58);
+  --text-3: rgba(0, 0, 0, .34);
+  --line: rgba(0, 0, 0, .1);
+  --line-strong: rgba(0, 0, 0, .16);
+
+  --win-bg: rgba(246, 246, 248, .74);
+  --win-bg-inactive: rgba(246, 246, 248, .66);
+  --bar-bg: rgba(238, 238, 242, .62);
+  --bar-bg-inactive: rgba(240, 240, 244, .52);
+  --sidebar-bg: rgba(228, 228, 234, .52);
+  --content-bg: rgba(255, 255, 255, .62);
+
+  --panel-bg: rgba(248, 248, 250, .66);
+  --panel-bg-2: rgba(255, 255, 255, .58);
+  --ctl-bg: rgba(255, 255, 255, .7);
+  --ctl-bg-hover: rgba(255, 255, 255, .95);
+  --ctl-on: rgba(0, 0, 0, .78);
+  --seg-bg: rgba(0, 0, 0, .07);
+  --field-bg: rgba(255, 255, 255, .85);
+  --hover: rgba(0, 0, 0, .06);
+  --select: color-mix(in srgb, var(--accent) 82%, transparent);
+  --dock-bg: rgba(255, 255, 255, .42);
+  --dock-line: rgba(255, 255, 255, .6);
+  --scrim: rgba(0, 0, 0, .28);
+  --menu-bg: rgba(246, 246, 249, .74);
+
+  --shadow-win: 0 0 0 .5px rgba(0, 0, 0, .16), 0 30px 60px -20px rgba(0, 0, 0, .38), 0 10px 24px rgba(0, 0, 0, .16);
+  --shadow-win-inactive: 0 0 0 .5px rgba(0, 0, 0, .12), 0 16px 34px -18px rgba(0, 0, 0, .26), 0 6px 14px rgba(0, 0, 0, .1);
+  --shadow-panel: 0 0 0 .5px rgba(0, 0, 0, .14), 0 22px 50px -16px rgba(0, 0, 0, .32);
+  --shadow-pop: 0 0 0 .5px rgba(0, 0, 0, .12), 0 12px 28px -8px rgba(0, 0, 0, .26);
+  --sheen: rgba(255, 255, 255, .5);
+}
+
+/* 無 backdrop-filter 環境的優雅降級 */
+@supports not ((backdrop-filter: blur(2px)) or (-webkit-backdrop-filter: blur(2px))) {
+  .glass { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
+  html[data-theme="dark"] { --win-bg: #232327; --panel-bg: #2a2a2f; --menu-bg: #2a2a2f; --dock-bg: #2e2e33; }
+  html[data-theme="light"] { --win-bg: #f7f7f9; --panel-bg: #fbfbfd; --menu-bg: #fbfbfd; --dock-bg: #ececf0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root { --dur-1: .01ms; --dur-2: .01ms; --dur-3: .01ms; }
+}
