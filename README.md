@@ -11,7 +11,7 @@
 ## 快速開始
 
 ```bash
-https://ryan133692.github.io/index.html(可以進去此系統測試版的網頁網址)
+https://web600.github.io/index.html(可以進去此系統測試版的網頁網址)
 ```
 
 首次進入桌面會自動開啟一個 Finder 視窗，並送出一則歡迎通知。
